@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<title>Primefaces tutorial</title>
+  </h:head>
+ 
+  <h:body>
+  	<h:form id="form">
+	  	<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+	    <div>
+	    	<h1>Input Text</h1>
+		    <p:inputText id="inputText" value="#{formularioVista.inputText}">
+		        <p:ajax event="keyup" update="inputValue" />
+		    </p:inputText>
+		    <br/>
+		    <h:outputText id="inputValue" value="#{formularioVista.inputText}" style="font-weight:bold;"/>
+	    </div>
+	    <br/>
+	    <div>
+	    	<h1>Select One</h1>
+		    <p:selectOneMenu id="lazy" value="#{formularioVista.lazySelection}" dynamic="true" style="width:125px">
+		        <f:selectItem itemLabel="Select One" itemValue="" />
+		        <f:selectItems value="#{formularioVista.lazyLista}" />
+		        <p:ajax event="itemSelect" update="seleccionado" />
+		    </p:selectOneMenu>
+		    <br/>
+		    <h:outputText id="seleccionado" value="#{formularioVista.lazySelection}" style="font-weight:bold;"/>
+	    </div>
+	    <br/>
+	    <div>
+	    	<h1>Dinamic table</h1>
+		    <p:commandButton id="addOption" value="AddOption" update="optionTable" action="#{formularioVista.addOption}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+		    <br/>
+		    <p:dataTable id="optionTable" var="option" value="#{formularioVista.options}">
+			    <p:column headerText="Option">
+			        <h:outputText value="#{option}" />
+			    </p:column>
+			</p:dataTable>
+	    </div>
+	    <br/>
+	    <div>
+	    	<h1>Submit Button</h1>
+		    <p:commandButton id="submit" value="Submit" update="form" action="#{formularioVista.validarForm}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	    </div>
+  	</h:form>
+  </h:body>
+</html>
