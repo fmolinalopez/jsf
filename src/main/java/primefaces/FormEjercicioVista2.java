@@ -3,6 +3,7 @@ package primefaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -42,16 +43,14 @@ public class FormEjercicioVista2 {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		boolean algunError = false;
 		
-		for (int i = 1; i <= listaInputs.size(); i++) {
+		IntStream.rangeClosed(1, listaInputs.size()).forEach(i ->{
 			if (!this.validarInputCorrespondiente(i)) {
-				algunError = true;
 				sb.append(" " + i);
 			}
-		}
+		});
 		
-		if (algunError) {
+		if (sb.length() > 0) {
 			this.mostrarError("Faltan por rellenar los inputs" + sb.toString());
 		} else {
 			this.mostrarInfo("Todos los inputs estan correctamente rellenados");

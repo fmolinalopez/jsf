@@ -57,6 +57,19 @@
 			    <p:knob id="edad" min="0" max="99" step="1" value="#{vista5.edad}"/>
 			    <p:spacer height="10px" width="100%"/>
 			 </p:outputPanel>
+			 
+			 <p:outputPanel rendered="#{vista5.mostrarFirma()}">
+			    <h:outputText value="Firma: "/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+			    <p:signature 
+		    		id="firma" 
+		    		style="width:400px;height:200px" 
+		    		widgetVar="sig" 
+		    		value="#{vista5.firma}"
+		    		guideline="true"/>
+			    <p:spacer height="10px" width="100%"/>
+			 </p:outputPanel>
 				    
 			 <p:commandButton value="Submit" action="#{vista5.validar}" rendered="#{not empty vista5.componentesSeleccionados}"/>
         </p:panel>

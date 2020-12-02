@@ -75,12 +75,16 @@ public class FormEjercicioVista5 {
 			camposConError.add(INPUT_APE1);
 		}
 		
-		if (this.mostrarApe2() && this.isBlank(this.nombre)) {
+		if (this.mostrarApe2() && this.isBlank(this.ape2)) {
 			camposConError.add(INPUT_APE2);
 		}
 		
 		if (this.mostrarEdad() && Objects.nonNull(this.edad) && this.edad < 1) {
 			camposConError.add(EDAD);
+		}
+		
+		if (this.mostrarFirma() && this.isBlank(this.firma)) {
+			camposConError.add(FIRMA);
 		}
 		
 		if (camposConError.isEmpty()) {
