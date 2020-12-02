@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<title>Primefaces ejercicio</title>
+  </h:head>
+ 
+  <h:body>
+  	<h:form id="form">
+	  	<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+
+		<p:selectManyMenu id="selectComponentes" value="#{vista4.componentesSeleccionados}"
+			var="componente" filter="true" filterMatchMode="contains" showCheckbox="true">
+			<f:selectItems value="#{vista4.componentes}"/>
+			
+			<p:column>
+                <h:outputText value="#{componente}" />
+            </p:column>
+        </p:selectManyMenu>
+        
+        <p:commandButton update="panelComponentes" value="Cargar Componentes"/>
+        <p:commandButton update="selectComponentes panelComponentes" value="Limpiar panel" action="#{vista4.limpiarPanel}"/>
+        
+        <p:panel id="panelComponentes">
+        	<p:dataTable id="tabla" var="dato" value="#{vista4.datosTabla}" rendered="#{vista4.mostrarTabla()}">
+			    <p:column headerText="Dato">
+			        <h:outputText value="#{dato}" />
+			    </p:column>
+			</p:dataTable>
+			
+			<p:knob id="edad" min="0" max="99" step="1" value="#{vista4.knob}" rendered="#{vista4.mostrarKnob()}"/>
+			
+	        <p:selectOneRadio id="console" value="#{vista4.radio}" unselectable="true" rendered="#{vista4.mostrarRadio()}">
+	            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+	            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+	            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+	        </p:selectOneRadio>
+	        
+			<p:datePicker id="date" value="#{vista4.date}" inline="true" rendered="#{vista4.mostrarDate()}"/>
+        </p:panel>
+  	</h:form>
+  </h:body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<title>Primefaces ejercicio 3</title>
+  </h:head>
+ 
+  <h:body>
+  	<h:form id="form">
+	  	<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+	    
+	    <p:selectOneMenu id="selectComponentes" value="#{vista3.componenteSeleccionado}">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{vista3.componentes}" />
+            <p:ajax event="itemSelect" update="panelComponentes"/>
+        </p:selectOneMenu>
+        <p:spacer height="10px" width="100%"/>
+
+		<p:panel id="panelComponentes">
+			<p:dataTable id="tabla" var="dato" value="#{vista3.datosTabla}" rendered="#{vista3.mostrarTabla()}">
+			    <p:column headerText="Dato">
+			        <h:outputText value="#{dato}" />
+			    </p:column>
+			</p:dataTable>
+			
+			<p:knob id="edad" min="0" max="99" step="1" value="#{vista3.knob}" rendered="#{vista3.mostrarKnob()}"/>
+			
+	        <p:selectOneRadio id="console" value="#{radioView.console}" unselectable="true" rendered="#{vista3.mostrarRadio()}">
+	            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+	            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+	            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+	        </p:selectOneRadio>
+	        
+			<p:datePicker id="date" value="#{vista3.date}" inline="true" rendered="#{vista3.mostrarDate()}"/>
+			
+			<p:commandButton id="submit" value="Submit" action="#{vista3.validar}" rendered="#{vista3.componenteSeleccionado != null and vista3.componenteSeleccionado != ''}"/>
+		</p:panel>		
+  	</h:form>
+  </h:body>
+</html>

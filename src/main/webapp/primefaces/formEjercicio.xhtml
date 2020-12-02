@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<title>Primefaces ejercicio</title>
+  </h:head>
+ 
+  <h:body>
+  	<h:form id="form">
+	  	<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+	    
+	    <h:outputText value="Nombre:"/>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <p:inputText id="nombre" value="#{vista.nombre}">
+	    	<p:ajax event="keyup" update="apellido1"/>
+	    </p:inputText>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <h:outputText value="Primer Apellido:"/>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <p:inputText id="apellido1" value="#{vista.apellido1}" disabled="#{vista.nombre == '' or vista.nombre == null}">
+	    	<p:ajax event="keyup" update="apellido2"/>
+	    </p:inputText>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <h:outputText value="Segundo Apellido:"/>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <p:inputText id="apellido2" value="#{vista.apellido2}" disabled="#{vista.apellido1 == '' or vista.apellido1 == null}">
+	    	<p:ajax event="keyup" update="edad"/>
+	    </p:inputText>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <h:outputText value="Edad: (Componente knob)"/>
+	    <p:spacer height="10px" width="100%"/>
+	    
+	    <p:knob id="edad" min="0" max="99" step="1" value="#{vista.edad}" disabled="#{vista.apellido2 == '' or vista.apellido2 == null}">
+	    	<p:ajax event="change" update="panelOculto"/>
+	    </p:knob>
+	    
+	    <p:panel id="panelOculto" visible="#{vista.edad != null and vista.edad != '' and vista.edad != '0'}">
+			    <h:outputText value="Firma:"/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+		    	<p:signature 
+		    		id="firma" 
+		    		style="width:400px;height:200px" 
+		    		widgetVar="sig" 
+		    		value="#{vista.firma}"
+		    		guideline="true"/>
+		    		
+				<p:signature 
+					id="firmaVista"
+					style="width:400px;height:200px;" 
+					value="#{vista.firma}" 
+					readonly="true"
+                    rendered="#{not empty vista.firma}" 
+                    backgroundColor="#eaeaea" 
+                    color="#03a9f4"/>		    		
+		    	<p:spacer height="10px" width="100%"/>
+		    	
+		    	<p:commandButton id="botonGuardarFirma" update="panelOculto" value="GuardarFirma"/>
+		    	<p:commandButton id="botonLimpiarFirma" update="panelOculto" value="LimpiarFirma" action="#{vista.resetearFirma}"/>
+	    </p:panel>
+	    
+	    <p:spacer height="10px" width="100%"/>
+		<p:commandButton id="submitButton" action="#{vista.validarForm}" value="Submit">
+			<p:confirm header="Validar formulario" message="Desea validar el formulario"/>
+		</p:commandButton>
+		
+		 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        	<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes"/>
+        	<p:commandButton value="No" type="button" action="#{vista.noValidar}" styleClass="ui-confirmdialog-no"/>
+    	</p:confirmDialog> 
+  	</h:form>
+  </h:body>
+</html>

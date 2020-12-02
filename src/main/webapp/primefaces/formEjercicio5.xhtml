@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<title>Primefaces ejercicio</title>
+  </h:head>
+ 
+  <h:body>
+  	<h:form id="form">
+	  	<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+
+		<p:selectManyMenu id="selectComponentes" value="#{vista5.componentesSeleccionados}"
+			var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
+			<f:selectItems value="#{vista5.componentes}"/>
+			
+			<p:column>
+                <h:outputText value="#{t}" />
+            </p:column>
+        </p:selectManyMenu>
+        
+        <p:commandButton update="panelComponentes" value="Cargar Componentes"/>
+        <p:commandButton update="selectComponentes panelComponentes" value="Limpiar panel" action="#{vista5.limpiarPanel}"/>
+        
+        <p:panel id="panelComponentes">
+			 <p:outputPanel rendered="#{vista5.mostrarNombre()}">
+	        	<h:outputText value="Nombre:"/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+			    <p:inputText id="nombre" value="#{vista5.nombre}"/>
+			    <p:spacer height="10px" width="100%"/>
+			 </p:outputPanel>  	
+			    
+			 <p:outputPanel rendered="#{vista5.mostrarApe1()}">
+			    <h:outputText value="Primer Apellido:"/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+			    <p:inputText id="apellido1" value="#{vista5.ape1}"/>
+			    <p:spacer height="10px" width="100%"/>
+			 </p:outputPanel>
+			    
+			 <p:outputPanel rendered="#{vista5.mostrarApe2()}">
+			    <h:outputText value="Segundo Apellido:"/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+			    <p:inputText id="apellido2" value="#{vista5.ape2}" />
+			    <p:spacer height="10px" width="100%"/>
+			 </p:outputPanel>
+			    
+			 <p:outputPanel rendered="#{vista5.mostrarEdad()}">
+			    <h:outputText value="Edad: (Componente knob)"/>
+			    <p:spacer height="10px" width="100%"/>
+			    
+			    <p:knob id="edad" min="0" max="99" step="1" value="#{vista5.edad}"/>
+			    <p:spacer height="10px" width="100%"/>
+			 </p:outputPanel>
+				    
+			 <p:commandButton value="Submit" action="#{vista5.validar}" rendered="#{not empty vista5.componentesSeleccionados}"/>
+        </p:panel>
+  	</h:form>
+  </h:body>
+</html>

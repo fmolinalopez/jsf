@@ -8,25 +8,74 @@
   </h:head>
  
   <h:body>
-  	<h:form>
+  	<h:form id="formulario">
+ 		<p:messages id="messages" showDetail="true" closable="true">
+        	<p:autoUpdate />
+    	</p:messages>
   		<div id="inputText">
   			<h1>Input Text</h1>
-  			<p:inputText></p:inputText>
+			<p:inputText id="inputText" value="#{formularioFPDualVista.campoTexto}"/>
+  			<h1>Input Text Ajax</h1>
+  			<p:inputText id="inputTextAjax" value="#{formularioFPDualVista.campoTextoAjax}">
+            	<p:ajax event="keydown" update="valorInputText" />
+	        </p:inputText>
+	        <h:outputText id="valorInputText" value="#{formularioFPDualVista.campoTextoAjax}" />
   		</div>
   		<p:spacer height="20px"/>
   		<div id="selectOne">
   			<h1>Select One</h1>
-  			
+  			<p:selectOneMenu id="console" value="#{formularioFPDualVista.campoSelectOne}" style="width:125px">
+	            <f:selectItem itemLabel="Select One" itemValue="" />
+	            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+	            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+	            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+	            <f:facet name="footer">
+	               <p:separator />
+	               <h:outputText value="3 consoles" style="font-weight:bold;"/>
+	            </f:facet>
+        	</p:selectOneMenu>
+        	<p:commandButton 
+	        	value="AddOption" 
+	        	id="botonAnadirOpcion" 
+	        	update="panelTablas:tablaOpciones"
+	        	action="#{formularioFPDualVista.anadirOpcionATabla}"
+	        	style="margin-right:20px;"
+	        	styleClass="ui-priority-primary" />
   		</div>
   		<p:spacer height="20px"/>
   		<div id="dataTable">
   			<h1>Data Table</h1>
-  			
+  			 <p:accordionPanel id="panelTablas">
+		        <p:tab title="Data Table Ajax">
+		            <h:panelGrid columns="1" cellpadding="10">
+						<p:dataTable id="tablaOpciones" var="opcion" value="#{formularioFPDualVista.datosTablaOpciones}">
+						    <p:column headerText="Opcion">
+						        <h:outputText value="#{opcion}" />
+						    </p:column>
+						</p:dataTable>
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="Data Table">
+		            <h:panelGrid columns="1" cellpadding="10">
+						<p:dataTable var="dato" value="#{formularioFPDualVista.datos}">
+						    <p:column headerText="Dato">
+						        <h:outputText value="#{dato}" />
+						    </p:column>
+						</p:dataTable>
+		            </h:panelGrid>
+		        </p:tab>
+	        </p:accordionPanel>
   		</div>
   		<p:spacer height="20px"/>
   		<div id="commandButton">
   			<h1>Command Button</h1>
-  			
+  			<p:commandButton 
+  				id="submitButton" 
+  				value="Submit" 
+  				update="messages"
+  				action="#{formularioFPDualVista.validarFormulario}"
+  				style="margin-right:20px;"
+  				styleClass="ui-priority-primary" />
   		</div>
   		<p:spacer height="20px"/>
   	</h:form>
