@@ -31,9 +31,11 @@ public class FormEjercicioVista2 {
 	
 	public void anadirInputs() {
 		this.listaInputs = new ArrayList<>();
-		for (int i = 1; i <= numeroInputs; i++) {
-			this.listaInputs.add(i);
-		}
+		
+		IntStream.rangeClosed(1, numeroInputs).forEach(this.listaInputs::add);
+//		for (int i = 1; i <= numeroInputs; i++) {
+//			this.listaInputs.add(i);
+//		}
 	}
 	
 	public void submit() {
@@ -49,6 +51,11 @@ public class FormEjercicioVista2 {
 				sb.append(" " + i);
 			}
 		});
+//		for (int i = 1; i <= listaInputs.size(); i++) {
+//			if (!this.validarInputCorrespondiente(i)) {
+//				sb.append(" " + i);
+//    		}
+//		}
 		
 		if (sb.length() > 0) {
 			this.mostrarError("Faltan por rellenar los inputs" + sb.toString());
