@@ -35,6 +35,50 @@ public class FormEjercicioVista3 {
 	
 	private String radio;
 	
+	public boolean mostrarTabla() {
+		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(DATATABLE);
+	}
+	
+	public boolean mostrarKnob() {
+		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(KNOB);
+	}
+	
+	public boolean mostrarRadio() {
+		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(RADIO);
+	}
+	
+	public boolean mostrarDate() {
+		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(DATEPICKER);
+	}
+	
+	public void validar() {
+		
+		if (this.isBlank(this.componenteSeleccionado)) {
+			this.mostrarError("No se ha seleccionado ningun componente");
+			return;
+		}
+		
+		if (this.mostrarTabla()) {
+			this.mostrarInfo("No hay nada que validar en el componente datatable");
+		}
+		
+		if (this.mostrarKnob()) {
+			if (Objects.nonNull(this.knobValue) && this.knobValue != 0 ) {
+				this.mostrarInfo("Se ha seleccionado un valor para knob correctamente");
+			} else {
+				this.mostrarError("Componente knob no relleno");
+			}
+		}
+		
+		if (this.mostrarRadio()) {
+			this.mostrarInfo("Validando radio");
+		}
+		
+		if (this.mostrarDate()) {
+			this.mostrarInfo("Validando date");
+		}
+	}
+	
 	public String getRadio() {
 		return radio;
 	}
@@ -75,54 +119,6 @@ public class FormEjercicioVista3 {
 		return datosTabla;
 	}
 	
-	public boolean mostrarTabla() {
-		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(DATATABLE);
-	}
-	
-	public boolean mostrarKnob() {
-		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(KNOB);
-	}
-	
-	public boolean mostrarRadio() {
-		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(RADIO);
-	}
-	
-	public boolean mostrarDate() {
-		return !this.isBlank(this.componenteSeleccionado) && componenteSeleccionado.equals(DATEPICKER);
-	}
-	
-	protected Boolean isBlank(String string) {
-		return Objects.isNull(string) || string.isEmpty();
-	}
-	
-	public void validar() {
-		
-		if (this.isBlank(this.componenteSeleccionado)) {
-			this.mostrarError("No se ha seleccionado ningun componente");
-			return;
-		}
-		
-		if (this.mostrarTabla()) {
-			this.mostrarInfo("No hay nada que validar en el componente datatable");
-		}
-		
-		if (this.mostrarKnob()) {
-			if (Objects.nonNull(this.knobValue) && this.knobValue != 0 ) {
-				this.mostrarInfo("Se ha seleccionado un valor para knob correctamente");
-			} else {
-				this.mostrarError("Componente knob no relleno");
-			}
-		}
-		
-		if (this.mostrarRadio()) {
-			this.mostrarInfo("Validando radio");
-		}
-		
-		if (this.mostrarDate()) {
-			this.mostrarInfo("Validando date");
-		}
-	}
-	
 	private void mostrarError(String error) {
 		FacesContext.getCurrentInstance()
 		 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", error));
@@ -131,5 +127,9 @@ public class FormEjercicioVista3 {
 	private void mostrarInfo(String info) {
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", info));
+	}
+	
+	protected Boolean isBlank(String string) {
+		return Objects.isNull(string) || string.isEmpty();
 	}
 }

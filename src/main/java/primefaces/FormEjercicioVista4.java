@@ -31,6 +31,26 @@ public class FormEjercicioVista4 {
 	
 	private String radioValue;
 	
+	public boolean mostrarTabla() {
+		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(DATATABLE);
+	}
+	
+	public boolean mostrarKnob() {
+		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(KNOB);
+	}
+	
+	public boolean mostrarRadio() {
+		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(RADIO);
+	}
+	
+	public boolean mostrarDate() {
+		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(DATEPICKER);
+	}
+	
+	public void limpiarPanel() {
+		this.componentesSeleccionados = new ArrayList<>();
+	}
+	
 	public String getRadio() {
 		return radioValue;
 	}
@@ -70,25 +90,5 @@ public class FormEjercicioVista4 {
 
 	public List<String> getComponentes() {
 		return componentes;
-	}
-	
-	public boolean mostrarTabla() {
-		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(DATATABLE);
-	}
-	
-	public boolean mostrarKnob() {
-		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(KNOB);
-	}
-	
-	public boolean mostrarRadio() {
-		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(RADIO);
-	}
-	
-	public boolean mostrarDate() {
-		return !this.componentesSeleccionados.isEmpty() && componentesSeleccionados.contains(DATEPICKER);
-	}
-	
-	public void limpiarPanel() {
-		this.componentesSeleccionados = new ArrayList<>();
 	}
 }

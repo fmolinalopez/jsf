@@ -23,6 +23,47 @@ public class FormEjercicioVista {
 	
 	private String firma;
 
+	public void validarForm() {
+		List<String> camposObligatoriosNoEnviados = new ArrayList<>();
+		
+		if (this.isBlank(this.nombre)) {
+			camposObligatoriosNoEnviados.add("Nombre");
+		} 
+		
+		if (this.isBlank(this.apellido1)) {
+			camposObligatoriosNoEnviados.add("Primer Apellido");
+		}
+		
+		if (this.isBlank(this.apellido2)) {
+			camposObligatoriosNoEnviados.add("Segundo Apellido");
+		} 
+		
+		if (this.isBlank(this.edad) || this.edad.equals("0")) {
+			camposObligatoriosNoEnviados.add("Edad");
+		}
+		
+		if (this.isBlank(this.firma)) {
+			camposObligatoriosNoEnviados.add("Firma");
+		}
+		
+		if (camposObligatoriosNoEnviados.isEmpty()) {
+			this.mostrarInfo("Datos correctos");
+		} else {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Faltan los siguientes datos obligatorios: ");
+			camposObligatoriosNoEnviados.forEach(co -> sb.append(co + ", "));
+			this.mostrarError(sb.toString());
+		}
+	}
+	
+	public void resetearFirma() {
+		this.firma = "";
+	}
+	
+	public void noValidar() {
+		this.mostrarWarn("No se ha validado el formulario");
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -63,43 +104,6 @@ public class FormEjercicioVista {
 		this.firma = firma;
 	}
 	
-	public void validarForm() {
-		List<String> camposObligatoriosNoEnviados = new ArrayList<>();
-		
-		if (this.isBlank(this.nombre)) {
-			camposObligatoriosNoEnviados.add("Nombre");
-		} 
-		
-		if (this.isBlank(this.apellido1)) {
-			camposObligatoriosNoEnviados.add("Primer Apellido");
-		}
-		
-		if (this.isBlank(this.apellido2)) {
-			camposObligatoriosNoEnviados.add("Segundo Apellido");
-		} 
-		
-		if (this.isBlank(this.edad) || this.edad.equals("0")) {
-			camposObligatoriosNoEnviados.add("Edad");
-		}
-		
-		if (this.isBlank(this.firma)) {
-			camposObligatoriosNoEnviados.add("Firma");
-		}
-		
-		if (camposObligatoriosNoEnviados.isEmpty()) {
-			this.mostrarInfo("Datos correctos");
-		} else {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Faltan los siguientes datos obligatorios: ");
-			camposObligatoriosNoEnviados.forEach(co -> sb.append(co + ", "));
-			this.mostrarError(sb.toString());
-		}
-	}
-	
-	public void resetearFirma() {
-		this.firma = "";
-	}
-	
 	protected boolean isBlank(String texto) {
 		return Objects.isNull(texto) || texto == "";
 	}
@@ -117,9 +121,5 @@ public class FormEjercicioVista {
 	protected void mostrarInfo(String info) {
 		FacesContext.getCurrentInstance()
 			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", info));
-	}
-	
-	public void noValidar() {
-		this.mostrarWarn("No se ha validado el formulario");
 	}
 }

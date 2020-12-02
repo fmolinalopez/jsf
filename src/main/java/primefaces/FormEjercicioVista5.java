@@ -34,6 +34,64 @@ public class FormEjercicioVista5 {
 	
 	private List<String> componentesSeleccionados = new ArrayList<>();
 
+	public boolean mostrarNombre() {
+		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_NOMBRE);
+	}
+	
+	public boolean mostrarApe1() {
+		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_APE1);
+	}
+	
+	public boolean mostrarApe2() {
+		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_APE2);
+	}
+	
+	public boolean mostrarEdad() {
+		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(EDAD);
+	}
+	
+	public boolean mostrarFirma() {
+		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(FIRMA);
+	}
+	
+	public void limpiarPanel() {
+		this.componentesSeleccionados = new ArrayList<>();
+	}
+	
+	public void validar() {
+		
+		List<String> camposConError = new ArrayList<>();
+		
+		if (this.componentesSeleccionados.isEmpty()) {
+			this.mostrarError("No se ha seleccionado ningun componente");
+			return;
+		}
+		
+		if (this.mostrarNombre() && this.isBlank(this.nombre)) {
+			camposConError.add(INPUT_NOMBRE);
+		}
+		
+		if (this.mostrarApe1() && this.isBlank(this.ape1)) {
+			camposConError.add(INPUT_APE1);
+		}
+		
+		if (this.mostrarApe2() && this.isBlank(this.nombre)) {
+			camposConError.add(INPUT_APE2);
+		}
+		
+		if (this.mostrarEdad() && Objects.nonNull(this.edad) && this.edad < 1) {
+			camposConError.add(EDAD);
+		}
+		
+		if (camposConError.isEmpty()) {
+			this.mostrarInfo("Formulario correcto");
+		} else {
+			StringBuilder sb = new StringBuilder();
+			camposConError.forEach(c -> sb.append(c + ", "));
+			this.mostrarError("Faltan los siguientes campos por rellenar: " + sb.toString());
+		}
+	}
+	
 	public List<String> getComponentesSeleccionados() {
 		return componentesSeleccionados;
 	}
@@ -86,67 +144,8 @@ public class FormEjercicioVista5 {
 		return componentes;
 	}
 	
-	public boolean mostrarNombre() {
-		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_NOMBRE);
-	}
-	
-	public boolean mostrarApe1() {
-		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_APE1);
-	}
-	
-	public boolean mostrarApe2() {
-		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(INPUT_APE2);
-	}
-	
-	public boolean mostrarEdad() {
-		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(EDAD);
-	}
-	
-	public boolean mostrarFirma() {
-		return !this.componentesSeleccionados.isEmpty() && this.componentesSeleccionados.contains(FIRMA);
-	}
-	
-	public void limpiarPanel() {
-		this.componentesSeleccionados = new ArrayList<>();
-	}
-	
 	protected Boolean isBlank(String string) {
 		return Objects.isNull(string) || string.isEmpty();
-	}
-	
-
-	public void validar() {
-		
-		List<String> camposConError = new ArrayList<>();
-		
-		if (this.componentesSeleccionados.isEmpty()) {
-			this.mostrarError("No se ha seleccionado ningun componente");
-			return;
-		}
-		
-		if (this.mostrarNombre() && this.isBlank(this.nombre)) {
-				camposConError.add(INPUT_NOMBRE);
-		}
-
-		if (this.mostrarApe1() && this.isBlank(this.ape1)) {
-				camposConError.add(INPUT_APE1);
-		}
-		
-		if (this.mostrarApe2() && this.isBlank(this.nombre)) {
-				camposConError.add(INPUT_APE2);
-		}
-		
-		if (this.mostrarEdad() && Objects.nonNull(this.edad) && this.edad < 1) {
-				camposConError.add(EDAD);
-		}
-
-		if (camposConError.isEmpty()) {
-			this.mostrarInfo("Formulario correcto");
-		} else {
-			StringBuilder sb = new StringBuilder();
-			camposConError.forEach(c -> sb.append(c + ", "));
-			this.mostrarError("Faltan los siguientes campos por rellenar: " + sb.toString());
-		}
 	}
 	
 	private void mostrarError(String error) {

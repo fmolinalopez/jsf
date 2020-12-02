@@ -28,6 +28,65 @@ public class FormEjercicioVista2 {
 	private String input9;
 	private String input10;
 	
+	public void anadirInputs() {
+		this.listaInputs = new ArrayList<>();
+		for (int i = 1; i <= numeroInputs; i++) {
+			this.listaInputs.add(i);
+		}
+	}
+	
+	public void submit() {
+		if (listaInputs.isEmpty()) {
+			this.mostrarError("No se ha anadido ningun input");
+			return;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		boolean algunError = false;
+		
+		for (int i = 1; i <= listaInputs.size(); i++) {
+			if (!this.validarInputCorrespondiente(i)) {
+				algunError = true;
+				sb.append(" " + i);
+			}
+		}
+		
+		if (algunError) {
+			this.mostrarError("Faltan por rellenar los inputs" + sb.toString());
+		} else {
+			this.mostrarInfo("Todos los inputs estan correctamente rellenados");
+		}
+	}
+	
+	protected boolean validarInputCorrespondiente(Integer numeroInput) {
+		
+		switch (numeroInput) {
+		case 1:
+			return !this.isBlank(this.input1);
+		case 2:
+			return !this.isBlank(this.input2);
+		case 3:
+			return !this.isBlank(this.input3);
+		case 4:
+			return !this.isBlank(this.input4);
+		case 5:
+			return !this.isBlank(this.input5);
+		case 6:
+			return !this.isBlank(this.input6);
+		case 7:
+			return !this.isBlank(this.input7);
+		case 8:
+			return !this.isBlank(this.input8);
+		case 9:
+			return !this.isBlank(this.input9);
+		case 10:
+			return !this.isBlank(this.input10);
+
+		default:
+			return true;
+		}
+	}
+	
 	public String getInput1() {
 		return input1;
 	}
@@ -124,65 +183,6 @@ public class FormEjercicioVista2 {
 		this.listaInputs = listaInputs;
 	}
 
-	public void anadirInputs() {
-		this.listaInputs = new ArrayList<>();
-		for (int i = 1; i <= numeroInputs; i++) {
-			this.listaInputs.add(i);
-		}
-	}
-	
-	public void submit() {
-		if (listaInputs.isEmpty()) {
-			this.mostrarError("No se ha anadido ningun input");
-			return;
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		boolean algunError = false;
-		
-		for (int i = 1; i <= listaInputs.size(); i++) {
-			if (!this.validarInputCorrespondiente(i)) {
-				algunError = true;
-				sb.append(" " + i);
-			}
-		}
-		
-		if (algunError) {
-			this.mostrarError("Faltan por rellenar los inputs" + sb.toString());
-		} else {
-			this.mostrarInfo("Todos los inputs estan correctamente rellenados");
-		}
-	}
-	
-	protected boolean validarInputCorrespondiente(Integer numeroInput) {
-		
-		switch (numeroInput) {
-		case 1:
-			return !this.isBlank(this.input1);
-		case 2:
-			return !this.isBlank(this.input2);
-		case 3:
-			return !this.isBlank(this.input3);
-		case 4:
-			return !this.isBlank(this.input4);
-		case 5:
-			return !this.isBlank(this.input5);
-		case 6:
-			return !this.isBlank(this.input6);
-		case 7:
-			return !this.isBlank(this.input7);
-		case 8:
-			return !this.isBlank(this.input8);
-		case 9:
-			return !this.isBlank(this.input9);
-		case 10:
-			return !this.isBlank(this.input10);
-
-		default:
-			return true;
-		}
-	}
-	
 	protected boolean isBlank(String texto) {
 		return Objects.isNull(texto) || texto == "";
 	}

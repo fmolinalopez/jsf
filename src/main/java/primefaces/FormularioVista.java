@@ -22,6 +22,26 @@ public class FormularioVista {
 	
 	private final List<String> lazyLista = Arrays.asList("Opcion 1", "Opcion 2", "Opcion 3");
 
+	public void validarForm() {
+		if (this.isBlank(this.getInputText()) || this.isBlank(this.lazySelection)) {
+			this.showError("Faltan datos obligatorios");
+		} else {
+			this.showInfo("Formulario validado con exito!!");
+		}
+	}
+	
+	public void addOption() {
+		if (!this.isBlank(this.lazySelection)) {
+			if (Objects.isNull(options)) {
+				this.options = new ArrayList<>();
+			}
+			this.options.add(this.lazySelection);
+			this.showInfo("Opcion añadida");
+		} else {
+			this.showError("No se ha seleccionado opcion");
+		}
+	}
+	
 	public String getInputText() {
 		return inputText;
 	}
@@ -46,30 +66,10 @@ public class FormularioVista {
 		return this.options;
 	}
 	
-	public void validarForm() {
-		if (this.isBlank(this.getInputText()) || this.isBlank(this.lazySelection)) {
-			this.showError("Faltan datos obligatorios");
-		} else {
-			this.showInfo("Formulario validado con exito!!");
-		}
-	}
-	
 	protected Boolean isBlank(String string) {
 		return Objects.isNull(string) || string.isEmpty();
 	}
 	
-	public void addOption() {
-		if (!this.isBlank(this.lazySelection)) {
-			if (Objects.isNull(options)) {
-				this.options = new ArrayList<>();
-			}
-			this.options.add(this.lazySelection);
-			this.showInfo("Opcion añadida");
-		} else {
-			this.showError("No se ha seleccionado opcion");
-		}
-	}
-
 	private void showError(String error) {
 		FacesContext.getCurrentInstance()
 		 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", error));
